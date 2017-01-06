@@ -1,0 +1,6 @@
+[submodule "SDL2Droid-CS"]
+	path = SDL2Droid-CS
+	url = https://github.com/0x0ade/SDL2Droid-CS.git
+[submodule "FNADroid-FNA"]
+	path = FNADroid-FNA
+	url = https://github.com/0x0ade/FNADroid-FNA.git
