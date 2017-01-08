@@ -45,9 +45,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FNA">
-      <HintPath>libs\managed\FNA.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -79,9 +76,14 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="libs\managed\" />
     <Folder Include="Resources\layout\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FNADroid-FNA\FNA.csproj">
+      <Project>{35253ce1-c864-4cd3-8249-4d1319748e8f}</Project>
+      <Name>FNA</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SDL2Droid-CS\SDL2Droid-CS-JBindings\SDL2Droid-CS-JBindings.csproj">
       <Project>{3a8963d1-351b-444b-b2fb-7207601c81de}</Project>
       <Name>SDL2Droid-CS-JBindings</Name>
@@ -95,4 +97,8 @@
 		<Target Name="AfterBuild">
 		</Target>
  -->
+  <Target Name="_CopyConfigFiles">
+	<!-- Own list of config files as some are Android-specific -->
+    <Copy SourceFiles="..\FNADroid-FNA\FNA.dll.droid.config" DestinationFiles="$(OutDir)\FNA.dll.config" />
+  </Target>
 </Project>

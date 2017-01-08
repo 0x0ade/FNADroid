@@ -5,7 +5,7 @@ using Org.Libsdl.App;
 using Android.Views;
 
 namespace FNADroid {
-    [Activity(
+	[Activity(
 		Label = "FNADroid",
 		MainLauncher = true,
 		Icon = "@drawable/icon",
@@ -44,4 +44,3 @@ namespace FNADroid {
 
 	}
 }
-
