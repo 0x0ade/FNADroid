@@ -63,6 +63,10 @@
     <AndroidNativeLibrary Include="libs\armeabi-v7a\libSDL2.so" />
     <AndroidNativeLibrary Include="libs\x86\libmain.so" />
     <AndroidNativeLibrary Include="libs\x86\libSDL2.so" />
+    <None Include="libs\armeabi-v7a\libmojoshader.so" />
+    <None Include="libs\armeabi-v7a\libSDL2_image.so" />
+    <None Include="libs\x86\libmojoshader.so" />
+    <None Include="libs\x86\libSDL2_image.so" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
@@ -98,7 +102,7 @@
 		</Target>
  -->
   <Target Name="_CopyConfigFiles">
-	<!-- Own list of config files as some are Android-specific -->
+    <!-- Own list of config files as some are Android-specific -->
     <Copy SourceFiles="..\FNADroid-FNA\FNA.dll.droid.config" DestinationFiles="$(OutDir)\FNA.dll.config" />
   </Target>
 </Project>
