@@ -20,7 +20,7 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
@@ -30,10 +30,18 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <Debugger>Xamarin</Debugger>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,6 +51,15 @@
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
+    <Debugger>Xamarin</Debugger>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -63,10 +80,16 @@
     <AndroidNativeLibrary Include="libs\armeabi-v7a\libSDL2.so" />
     <AndroidNativeLibrary Include="libs\x86\libmain.so" />
     <AndroidNativeLibrary Include="libs\x86\libSDL2.so" />
-    <None Include="libs\armeabi-v7a\libmojoshader.so" />
-    <None Include="libs\armeabi-v7a\libSDL2_image.so" />
-    <None Include="libs\x86\libmojoshader.so" />
-    <None Include="libs\x86\libSDL2_image.so" />
+    <AndroidNativeLibrary Include="libs\armeabi-v7a\libMojoShader.so" />
+    <AndroidNativeLibrary Include="libs\armeabi-v7a\libogg.so" />
+    <AndroidNativeLibrary Include="libs\armeabi-v7a\libsoft_oal.so" />
+    <AndroidNativeLibrary Include="libs\armeabi-v7a\libSDL2_image.so" />
+    <AndroidNativeLibrary Include="libs\armeabi-v7a\libvorbis.so" />
+    <AndroidNativeLibrary Include="libs\x86\libMojoShader.so" />
+    <AndroidNativeLibrary Include="libs\x86\libogg.so" />
+    <AndroidNativeLibrary Include="libs\x86\libsoft_oal.so" />
+    <AndroidNativeLibrary Include="libs\x86\libSDL2_image.so" />
+    <AndroidNativeLibrary Include="libs\x86\libvorbis.so" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
