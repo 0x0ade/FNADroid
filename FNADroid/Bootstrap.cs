@@ -37,6 +37,11 @@ namespace FNADroid
 			// Give the main library something to call in Mono-Land afterwards
 			SetMain(SDL_Main);
 
+			// Load stub Steamworks.NET
+			Steamworks.SteamAPI.Init();
+
+			// FNA and FNADroid environment vars
+
 			System.Environment.SetEnvironmentVariable("FNADROID_GAMEPATH", "/storage/sdcard1/FEZ/FEZ.exe"); // FIXME: HARDCODED
 
 			string gamePath = System.Environment.GetEnvironmentVariable("FNADROID_GAMEPATH");
@@ -50,10 +55,7 @@ namespace FNADroid
 
 			System.Environment.SetEnvironmentVariable("FNA_OPENGL_FORCE_ES3", "1");
 
-			// string fnaPath = new Uri(typeof(Microsoft.Xna.Framework.Game).Assembly.CodeBase).LocalPath;
-			string fnaGamePath = Path.Combine(gameDir, "FNA.dll");
-			if (File.Exists(fnaGamePath))
-				File.Delete(fnaGamePath);
+			System.Environment.SetEnvironmentVariable("FNA_AUDIO_DISABLE_SOUND", "1"); // FIXME: OpenAL opening device crashes
 		}
 
 		[DllImport("main")]
