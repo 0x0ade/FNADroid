@@ -20,7 +20,10 @@ namespace FNADroid {
 
         public override void LoadLibraries() {
             base.LoadLibraries();
-            SDL2DCS_Instance = this;
+			Java.Lang.JavaSystem.LoadLibrary("fnadroid-ext");
+			// Required for OpenAL to function properly as it access the JNI env directly.
+			Java.Lang.JavaSystem.LoadLibrary("soft_oal");
+			SDL2DCS_Instance = this;
             Bootstrap.SetupMain();
         }
 
