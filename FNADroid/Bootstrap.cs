@@ -37,6 +37,10 @@ namespace FNADroid
 
 		public static void SetupMain()
 		{
+			Java.Lang.JavaSystem.LoadLibrary("fnadroid-ext");
+			// Required for OpenAL to function properly as it access the JNI env directly.
+			Java.Lang.JavaSystem.LoadLibrary("soft_oal");
+
 			// Give the main library something to call in Mono-Land afterwards
 			SetMain(SDL_Main);
 
@@ -77,7 +81,13 @@ namespace FNADroid
 			Environment.SetEnvironmentVariable("FNA_OPENGL_FORCE_ES3", "1");
 
 			// At this point I'm just waiting for FACT...
+			// Those were once required for old that old copy of OpenAL I found somewhere(tm).
+			/*
+			Environment.SetEnvironmentVariable("FNA_AUDIO_DEVICE_NAME", "Android Legacy");
 			Environment.SetEnvironmentVariable("FNA_AUDIO_DEVICES_IN", " ");
+			*/
+			// This is required to save RAM.
+			Environment.SetEnvironmentVariable("FNA_AUDIO_FORCE_STREAM", "1");
 		}
 
 		[DllImport("main")]
