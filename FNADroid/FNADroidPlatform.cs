@@ -18,11 +18,24 @@ namespace FNADroid
 	public static class FNADroidPlatform
 	{
 
-		public static void Initialize()
-		{
-			RuntimeHelpers.RunClassConstructor(t_FNAPlatform.TypeHandle);
+		public static Game Game;
 
-			// TODO Do we really not need to hook something?
+		public static void PreInitialize()
+		{
+			MainActivity.SDL2DCS_Instance.RunOnUiThread(delegate() {
+				MainActivity.SDL2DCS_Instance.ActionBar.Hide();
+				// FIXME: The empty space (in my soul) this seems to cause sometimes below, sometimes above the game.
+			});
+
+			Hook("ApplyWindowChanges");
+			Hook("RunLoop");
+		}
+
+		public static void Initialize(Game game)
+		{
+			Game = game;
+
+
 		}
 
 		public readonly static Type t_FNADroidPlatform = typeof(FNADroidPlatform);
@@ -36,6 +49,45 @@ namespace FNADroid
 			t_FNADroidPlatform.GetField($"fna_{name}")?.SetValue(null, field.GetValue(null));
 			// Replace the value with the new method.
 			field.SetValue(null, Delegate.CreateDelegate(a_FNA.GetType($"Microsoft.Xna.Framework.FNAPlatform+{name}Func"), t_FNADroidPlatform.GetMethod(name)));
+		}
+
+		public static MulticastDelegate fna_ApplyWindowChanges;
+		public static void ApplyWindowChanges(
+			IntPtr window,
+			int clientWidth,
+			int clientHeight,
+			bool wantsFullscreen,
+			string screenDeviceName,
+			ref string resultDeviceName
+		)
+		{
+			object[] args = { window, clientWidth, clientHeight, wantsFullscreen, screenDeviceName, resultDeviceName };
+
+			if (MainActivity.SDL2DCS_Fullscreen)
+			{
+				// Real display size
+				Android.Graphics.Point size = new Android.Graphics.Point();
+				MainActivity.SDL2DCS_Instance.WindowManager.DefaultDisplay.GetRealSize(size);
+				args[1] = size.X;
+				args[2] = size.Y;
+				GraphicsDeviceManager gdm = Game?.Services.GetService(typeof(IGraphicsDeviceManager)) as GraphicsDeviceManager;
+				if (gdm != null)
+				{
+					gdm.PreferredBackBufferWidth = size.X;
+					gdm.PreferredBackBufferHeight = size.Y;
+				}
+			}
+
+			fna_ApplyWindowChanges.DynamicInvoke(args);
+			resultDeviceName = (string) args[5];
+		}
+
+		public static MulticastDelegate fna_RunLoop;
+		public static void RunLoop(Game game)
+		{
+			Initialize(game);
+
+			fna_RunLoop.DynamicInvoke(game);
 		}
 
 	}

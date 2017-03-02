@@ -31,7 +31,7 @@ namespace FNADroid
 
 		public static void SDL_Main()
 		{
-			FNADroidPlatform.Initialize();
+			FNADroidPlatform.PreInitialize();
 
 			// Replace the following "Program.Main via reflection" call with whatever was in your old Program.Main method.
 			Assembly.LoadFrom(Environment.GetEnvironmentVariable("FNADROID_GAMEPATH")).EntryPoint.Invoke(null, new object[] { new string[] { /*args*/ } });
@@ -88,8 +88,16 @@ namespace FNADroid
 			Environment.SetEnvironmentVariable("FNA_AUDIO_DEVICE_NAME", "Android Legacy");
 			Environment.SetEnvironmentVariable("FNA_AUDIO_DEVICES_IN", " ");
 			*/
+
 			// This is required to save RAM.
 			Environment.SetEnvironmentVariable("FNA_AUDIO_FORCE_STREAM", "1");
+
+			// Required as SDL2 seems to take UI elements such as the action bar into account.
+			Android.Graphics.Point size = new Android.Graphics.Point();
+			MainActivity.SDL2DCS_Instance.WindowManager.DefaultDisplay.GetRealSize(size);
+			string displayMode = $"{size.X}, {size.Y}";
+			Environment.SetEnvironmentVariable("FNA_GRAPHICS_MODES", displayMode);
+			Environment.SetEnvironmentVariable("FNA_GRAPHICS_MODE", displayMode);
 		}
 
 		[DllImport("main")]

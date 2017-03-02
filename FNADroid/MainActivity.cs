@@ -3,6 +3,7 @@ using Android.Widget;
 using Android.OS;
 using Org.Libsdl.App;
 using Android.Views;
+using Android.Content.Res;
 
 namespace FNADroid {
     [Activity(
@@ -10,7 +11,7 @@ namespace FNADroid {
 		MainLauncher = true,
 		Icon = "@drawable/icon",
         HardwareAccelerated = true,
-        ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape
+		ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape
     )]
     public class MainActivity : SDLActivity {
 
@@ -35,8 +36,8 @@ namespace FNADroid {
                     SystemUiFlags.Fullscreen |
                     SystemUiFlags.ImmersiveSticky
                 );
-            }
+			}
         }
 
-    }
+	}
 }
