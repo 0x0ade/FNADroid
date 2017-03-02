@@ -37,5 +37,5 @@ In your favourite Java IDE, produce a compiled .jar artifact and place it into `
 
 *Compilation:*
 * Load the solution in Visual Studio with the "Xamarin for Visual Studio" extension installed.
-* Modify `/FNADroid/Bootstrap.cs` for your main code, `/SDL2Droid-CS/Resources/` for any strings / icons / ... and `/FNADroid/MainActivity.cs` for the launch config (f.e. orientation).
+* Modify `/FNADroid/Bootstrap.cs` for your main code, `/FNADroid/Resources/` for any strings / icons / ... and `/FNADroid/MainActivity.cs` for the launch config (f.e. orientation).
 * Compile as you would any other Xamarin.Android project.
