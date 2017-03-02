@@ -31,6 +31,8 @@ namespace FNADroid
 
 		public static void SDL_Main()
 		{
+			FNADroidPlatform.Initialize();
+
 			// Replace the following "Program.Main via reflection" call with whatever was in your old Program.Main method.
 			Assembly.LoadFrom(Environment.GetEnvironmentVariable("FNADROID_GAMEPATH")).EntryPoint.Invoke(null, new object[] { new string[] { /*args*/ } });
 		}

@@ -31,7 +31,7 @@ In your favourite Java IDE, produce a compiled .jar artifact and place it into `
 
 #### /FNADroid/ and /FNADroid-Lib/
 
-*What:* The Mono side of things: Main C# code starting the game and (-Lib) optional extension library to be used by the game.
+*What:* The Mono side of things: Main C# code starting the game and (-Lib) an optional extension library to be used by the game without needing to refer to FNADroid.
 
 *Why:* Why not?
 
