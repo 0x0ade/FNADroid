@@ -63,8 +63,11 @@ namespace FNADroid
 			// If your game code is shipping with the APK (f.e. your game is referenced by the FNADroid project), FNADROID_GAMEPATH is useless to you.
 			if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FNADROID_GAMEPATH")))
 			{
-				// HARDCODED FOR DEMO PURPOSES
-				Environment.SetEnvironmentVariable("FNADROID_GAMEPATH", "/storage/sdcard1/Android/data/FNADroid.FNADroid/files/Celeste/Celeste.exe");
+                // HARDCODED FOR DEMO PURPOSES
+                string path = "/storage/sdcard1/Android/data/FNADroid.FNADroid/files/Celeste/Celeste.exe";
+                if (!File.Exists(path))
+                    path = "/storage/emulated/0/Android/data/FNADroid.FNADroid/files/Celeste/Celeste.exe";
+				Environment.SetEnvironmentVariable("FNADROID_GAMEPATH", path);
 			}
 
 			string storagePath = MainActivity.SDL2DCS_Instance.GetExternalFilesDir(null).AbsolutePath;
