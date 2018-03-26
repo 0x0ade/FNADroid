@@ -20,6 +20,9 @@ using System.Xml;
 
 using System.Reflection;
 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 using Environment = System.Environment;
 
 namespace FNADroid
@@ -33,6 +36,13 @@ namespace FNADroid
 		{
 			FNADroidPlatform.PreInitialize();
 
+			/*
+			using (TestGame game = new TestGame())
+			{
+				game.Run();
+			}
+			*/
+
 			// Replace the following "Program.Main via reflection" call with whatever was in your old Program.Main method.
 			Assembly.LoadFrom(Environment.GetEnvironmentVariable("FNADROID_GAMEPATH")).EntryPoint.Invoke(null, new object[] { new string[] { /*args*/ } });
 		}
@@ -40,16 +50,16 @@ namespace FNADroid
 		public static void SetupMain()
 		{
 			Java.Lang.JavaSystem.LoadLibrary("fnadroid-ext");
-			// Required for OpenAL to function properly as it access the JNI env directly.
+			// Required for OpenAL to function properly as it accesses the JNI env directly.
 			Java.Lang.JavaSystem.LoadLibrary("soft_oal");
 
-			// Give the main library something to call in Mono-Land afterwards
+			// Give the main library something to call in Mono-Land.
 			SetMain(SDL_Main);
 
 			// Load stub Steamworks.NET
 			Steamworks.SteamAPI.Init();
 
-			// FNA and FNADroid environment vars
+			// FNA and FNADroid environment vars.
 			// If your game code is shipping with the APK (f.e. your game is referenced by the FNADroid project), FNADROID_GAMEPATH is useless to you.
 			if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FNADROID_GAMEPATH")))
 			{

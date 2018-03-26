@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestGame.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="FNADroidPlatform.cs" />
     <Compile Include="MainActivity.cs" />
