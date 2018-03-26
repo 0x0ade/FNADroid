@@ -54,7 +54,7 @@ namespace FNADroid
 			if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FNADROID_GAMEPATH")))
 			{
 				// HARDCODED FOR DEMO PURPOSES
-				Environment.SetEnvironmentVariable("FNADROID_GAMEPATH", "/storage/sdcard1/Stardew Valley/Stardew Valley.exe");
+				Environment.SetEnvironmentVariable("FNADROID_GAMEPATH", "/storage/sdcard1/Android/data/FNADroid.FNADroid/files/Celeste/Celeste.exe");
 			}
 
 			string storagePath = MainActivity.SDL2DCS_Instance.GetExternalFilesDir(null).AbsolutePath;
