@@ -136,9 +136,5 @@
 		</Target>
 		<Target Name="AfterBuild">
 		</Target>
- -->
-  <Target Name="_CopyConfigFiles">
-    <!-- Own list of config files as some are Android-specific -->
-    <Copy SourceFiles="..\FNADroid-FNA\FNA.dll.droid.config" DestinationFiles="$(OutDir)\FNA.dll.config" />
-  </Target>
+  -->
 </Project>
