@@ -87,12 +87,12 @@
     <AndroidNativeLibrary Include="libs\armeabi-v7a\libSDL2.so" />
     <AndroidNativeLibrary Include="libs\x86\libmain.so" />
     <AndroidNativeLibrary Include="libs\x86\libSDL2.so" />
-    <AndroidNativeLibrary Include="libs\armeabi-v7a\libMojoShader.so" />
+    <AndroidNativeLibrary Include="libs\armeabi-v7a\libmojoshader.so" />
     <AndroidNativeLibrary Include="libs\armeabi-v7a\libogg.so" />
     <AndroidNativeLibrary Include="libs\armeabi-v7a\libsoft_oal.so" />
     <AndroidNativeLibrary Include="libs\armeabi-v7a\libSDL2_image.so" />
     <AndroidNativeLibrary Include="libs\armeabi-v7a\libvorbisfile.so" />
-    <AndroidNativeLibrary Include="libs\x86\libMojoShader.so" />
+    <AndroidNativeLibrary Include="libs\x86\libmojoshader.so" />
     <AndroidNativeLibrary Include="libs\x86\libogg.so" />
     <AndroidNativeLibrary Include="libs\x86\libsoft_oal.so" />
     <AndroidNativeLibrary Include="libs\x86\libSDL2_image.so" />

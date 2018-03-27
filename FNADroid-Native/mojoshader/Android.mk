@@ -2,12 +2,13 @@ LOCAL_PATH := $(call my-dir)/MojoShader
 
 ###########################
 #
-# MojoShader - with uppercase M and S because Xamarin.Android hates us
+# MojoShader - with lowercase m and s because Xamarin.Android hates us
+# (Note: If Xamarin.Android hates us again, switch back to MojoShader with uppercase M and S)
 #
 ###########################
 
 include $(CLEAR_VARS)
-LOCAL_MODULE    := MojoShader
+LOCAL_MODULE    := mojoshader
 LOCAL_SRC_FILES := mojoshader.c mojoshader_common.c mojoshader_opengl.c mojoshader_effects.c
 LOCAL_LDLIBS    := -lEGL -lGLESv2 -lm -ldl
 LOCAL_CFLAGS += -IGL \
