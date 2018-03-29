@@ -64,10 +64,21 @@ namespace FNADroid
 			if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FNADROID_GAMEPATH")))
 			{
                 // HARDCODED FOR DEMO PURPOSES
-                string path = "/storage/sdcard1/Android/data/FNADroid.FNADroid/files/Celeste/Celeste.exe";
-                if (!File.Exists(path))
-                    path = "/storage/emulated/0/Android/data/FNADroid.FNADroid/files/Celeste/Celeste.exe";
-				Environment.SetEnvironmentVariable("FNADROID_GAMEPATH", path);
+                string game = "Celeste/Celeste.exe";
+                
+                string root = "/storage/emulated/0/Android/data/FNADroid.FNADroid/files";
+                if (!File.Exists(Path.Combine(root, game))) {
+                    Java.IO.File[] roots = MainActivity.SDL2DCS_Instance.GetExternalFilesDirs(null);
+                    foreach (Java.IO.File rootExt in roots)
+                        Console.WriteLine($"FNADROIDFNADROIDFNADROID Found root {rootExt.AbsolutePath}");
+                    foreach (Java.IO.File rootExt in roots)
+                        if (File.Exists(Path.Combine(rootExt.AbsolutePath, game))) {
+                            root = rootExt.AbsolutePath;
+                            break;
+                        }
+                }
+
+				Environment.SetEnvironmentVariable("FNADROID_GAMEPATH", Path.Combine(root, game));
 			}
 
 			string storagePath = MainActivity.SDL2DCS_Instance.GetExternalFilesDir(null).AbsolutePath;
