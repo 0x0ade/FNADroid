@@ -1,9 +1,8 @@
-LOCAL_PATH := $(call my-dir)/MojoShader
+LOCAL_PATH := $(call my-dir)/../../FNADroid-FNA/lib/MojoShader
 
 ###########################
 #
-# MojoShader - with lowercase m and s because Xamarin.Android hates us
-# (Note: If Xamarin.Android hates us again, switch back to MojoShader with uppercase M and S)
+# MojoShader - with lowercase m and s
 #
 ###########################
 
@@ -21,6 +20,5 @@ LOCAL_CFLAGS += -IGL \
 	-DSUPPORT_PROFILE_BYTECODE=0 \
 	-DSUPPORT_PROFILE_ARB1=0 \
 	-DSUPPORT_PROFILE_ARB1_NV=0 \
-	-DSUPPORT_PROFILE_METAL=0 \
-	-DSUPPORT_FORMAT_XENOS=0
+	-DSUPPORT_PROFILE_METAL=0
 include $(BUILD_SHARED_LIBRARY)

@@ -4,6 +4,3 @@
 [submodule "FNADroid-FNA"]
 	path = FNADroid-FNA
 	url = https://github.com/0x0ade/FNADroid-FNA.git
-[submodule "FNADroid-Native/mojoshader/MojoShader"]
-	path = FNADroid-Native/mojoshader/MojoShader
-	url = https://github.com/0x0ade/MojoShader.git

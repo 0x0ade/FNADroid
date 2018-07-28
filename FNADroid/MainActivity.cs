@@ -19,19 +19,25 @@ namespace FNADroid
 
 		public static MainActivity SDL2DCS_Instance { get; protected set; }
 
-		public static bool SDL2DCS_Fullscreen = true;
-
 		public override void LoadLibraries()
 		{
 			base.LoadLibraries();
+			Java.Lang.JavaSystem.LoadLibrary("fnadroid-ext");
+			// Give the main library something to call in Mono-Land.
+			Bootstrap.SetMain(Bootstrap.SDL_Main);
+		}
+
+		protected override void OnStart()
+		{
+			base.OnStart();
 			SDL2DCS_Instance = this;
-			Bootstrap.SetupMain();
+			ActionBar.Hide();
 		}
 
 		public override void OnWindowFocusChanged(bool hasFocus)
 		{
 			base.OnWindowFocusChanged(hasFocus);
-			if (hasFocus && SDL2DCS_Fullscreen)
+			if (hasFocus)
 			{
 				Window.DecorView.SystemUiVisibility = (StatusBarVisibility) (
 					SystemUiFlags.LayoutStable |

@@ -32,9 +32,38 @@ namespace FNADroid
 	static class Bootstrap
 	{
 
+		// TODO: UNHARDCODE!
+		public const string Game = "Celeste/Celeste.exe";
+		
 		public static void SDL_Main()
 		{
+			Console.WriteLine("FNADROIDFNADROIDFNADROID RUNNING SDL_Main");
+
+			// Load stub Steamworks.NET
+			Steamworks.SteamAPI.Init();
+
+			string gamePath = null;
+			foreach (Java.IO.File root in MainActivity.SDL2DCS_Instance.GetExternalFilesDirs(null))
+			{
+				string path = Path.Combine(root.AbsolutePath, Game);
+				if (!File.Exists(path))
+					continue;
+				gamePath = path;
+				break;
+			}
+
+			if (string.IsNullOrEmpty(gamePath))
+			{
+				// TODO: Show proper error message.
+				throw new Exception("Game not found!");
+			}
+
+			Environment.CurrentDirectory = Path.GetDirectoryName(gamePath);
+			Environment.SetEnvironmentVariable("FNADROID", "1");
+
 			FNADroidPlatform.PreInitialize();
+
+			// Replace the following with whatever was in your Program.Main method.
 
 			/*
 			using (TestGame game = new TestGame())
@@ -42,90 +71,11 @@ namespace FNADroid
 				game.Run();
 			}
 			*/
-
-			// Replace the following "Program.Main via reflection" call with whatever was in your old Program.Main method.
-			Assembly.LoadFrom(Environment.GetEnvironmentVariable("FNADROID_GAMEPATH")).EntryPoint.Invoke(null, new object[] { new string[] { /*args*/ } });
-		}
-
-		public static void SetupMain()
-		{
-			Java.Lang.JavaSystem.LoadLibrary("fnadroid-ext");
-
-			// Give the main library something to call in Mono-Land.
-			SetMain(SDL_Main);
-
-			// Load stub Steamworks.NET
-			Steamworks.SteamAPI.Init();
-
-			// FNA and FNADroid environment vars.
-			// If your game code is shipping with the APK (f.e. your game is referenced by the FNADroid project), FNADROID_GAMEPATH is useless to you.
-			if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FNADROID_GAMEPATH")))
-			{
-				// HARDCODED FOR DEMO PURPOSES
-				string game = "Celeste/Celeste.exe";
-                
-				string root = "/storage/emulated/0/Android/data/FNADroid.FNADroid/files";
-				if (!File.Exists(Path.Combine(root, game)))
-				{
-					Java.IO.File[] roots = MainActivity.SDL2DCS_Instance.GetExternalFilesDirs(null);
-					foreach (Java.IO.File rootExt in roots)
-						Console.WriteLine($"FNADROIDFNADROIDFNADROID Found root {rootExt.AbsolutePath}");
-					foreach (Java.IO.File rootExt in roots)
-						if (File.Exists(Path.Combine(rootExt.AbsolutePath, game)))
-						{
-							root = rootExt.AbsolutePath;
-							break;
-						}
-				}
-
-				Environment.SetEnvironmentVariable("FNADROID_GAMEPATH", Path.Combine(root, game));
-			}
-
-			string storagePath = MainActivity.SDL2DCS_Instance.GetExternalFilesDir(null).AbsolutePath;
-
-			string gamePath = Environment.GetEnvironmentVariable("FNADROID_GAMEPATH");
-			string gameDir;
-			if (!string.IsNullOrEmpty(gamePath))
-			{
-				// GAMEPATH defined: Set paths relative to game path.
-				gameDir = Path.GetDirectoryName(gamePath);
-			}
-			else
-			{
-				// GAMEPATH not defined: Set paths relative to storage path.
-				gamePath = Path.Combine(storagePath, "game.exe"); // Fake!
-				gameDir = storagePath;
-			}
-
-			Directory.SetCurrentDirectory(gameDir);
-
-			Environment.SetEnvironmentVariable("FNADROID", "1");
-			Environment.SetEnvironmentVariable("FNADROID_LOCALDIR", storagePath);
-			Environment.SetEnvironmentVariable("FNA_CONFDIR", storagePath);
-			Environment.SetEnvironmentVariable("FNA_BASEDIR", gameDir);
-
-			Environment.SetEnvironmentVariable("FNA_OPENGL_FORCE_ES3", "1");
-
-			// At this point I'm just waiting for FACT...
-			// Those were once required for old that old copy of OpenAL I found somewhere(tm).
-			/*
-			Environment.SetEnvironmentVariable("FNA_AUDIO_DEVICE_NAME", "Android Legacy");
-			Environment.SetEnvironmentVariable("FNA_AUDIO_DEVICES_IN", " ");
-			*/
-
-			// This is required to save RAM.
-			Environment.SetEnvironmentVariable("FNA_AUDIO_FORCE_STREAM", "1");
-
-			// Required as SDL2 seems to take UI elements such as the action bar into account.
-			Android.Graphics.Point size = new Android.Graphics.Point();
-			MainActivity.SDL2DCS_Instance.WindowManager.DefaultDisplay.GetRealSize(size);
-			string displayMode = $"{size.X}, {size.Y}";
-			Environment.SetEnvironmentVariable("FNA_GRAPHICS_MODES", displayMode);
-			Environment.SetEnvironmentVariable("FNA_GRAPHICS_MODE", displayMode);
+			Assembly.LoadFrom(gamePath).EntryPoint.Invoke(null, new object[] { new string[] { /*args*/ } });
 		}
 
 		[DllImport("main")]
-		static extern void SetMain(Main main);
+		public static extern void SetMain(Main main);
 
 	}
 }
