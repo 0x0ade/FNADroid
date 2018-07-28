@@ -50,8 +50,6 @@ namespace FNADroid
 		public static void SetupMain()
 		{
 			Java.Lang.JavaSystem.LoadLibrary("fnadroid-ext");
-			// Required for OpenAL to function properly as it accesses the JNI env directly.
-			Java.Lang.JavaSystem.LoadLibrary("soft_oal");
 
 			// Give the main library something to call in Mono-Land.
 			SetMain(SDL_Main);
@@ -63,20 +61,22 @@ namespace FNADroid
 			// If your game code is shipping with the APK (f.e. your game is referenced by the FNADroid project), FNADROID_GAMEPATH is useless to you.
 			if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FNADROID_GAMEPATH")))
 			{
-                // HARDCODED FOR DEMO PURPOSES
-                string game = "Celeste/Celeste.exe";
+				// HARDCODED FOR DEMO PURPOSES
+				string game = "Celeste/Celeste.exe";
                 
-                string root = "/storage/emulated/0/Android/data/FNADroid.FNADroid/files";
-                if (!File.Exists(Path.Combine(root, game))) {
-                    Java.IO.File[] roots = MainActivity.SDL2DCS_Instance.GetExternalFilesDirs(null);
-                    foreach (Java.IO.File rootExt in roots)
-                        Console.WriteLine($"FNADROIDFNADROIDFNADROID Found root {rootExt.AbsolutePath}");
-                    foreach (Java.IO.File rootExt in roots)
-                        if (File.Exists(Path.Combine(rootExt.AbsolutePath, game))) {
-                            root = rootExt.AbsolutePath;
-                            break;
-                        }
-                }
+				string root = "/storage/emulated/0/Android/data/FNADroid.FNADroid/files";
+				if (!File.Exists(Path.Combine(root, game)))
+				{
+					Java.IO.File[] roots = MainActivity.SDL2DCS_Instance.GetExternalFilesDirs(null);
+					foreach (Java.IO.File rootExt in roots)
+						Console.WriteLine($"FNADROIDFNADROIDFNADROID Found root {rootExt.AbsolutePath}");
+					foreach (Java.IO.File rootExt in roots)
+						if (File.Exists(Path.Combine(rootExt.AbsolutePath, game)))
+						{
+							root = rootExt.AbsolutePath;
+							break;
+						}
+				}
 
 				Environment.SetEnvironmentVariable("FNADROID_GAMEPATH", Path.Combine(root, game));
 			}
@@ -88,7 +88,7 @@ namespace FNADroid
 			if (!string.IsNullOrEmpty(gamePath))
 			{
 				// GAMEPATH defined: Set paths relative to game path.
-				gameDir = Directory.GetParent(gamePath).FullName;
+				gameDir = Path.GetDirectoryName(gamePath);
 			}
 			else
 			{
@@ -102,7 +102,7 @@ namespace FNADroid
 			Environment.SetEnvironmentVariable("FNADROID", "1");
 			Environment.SetEnvironmentVariable("FNADROID_LOCALDIR", storagePath);
 			Environment.SetEnvironmentVariable("FNA_CONFDIR", storagePath);
-			Environment.SetEnvironmentVariable("FNA_TITLEDIR", gameDir);
+			Environment.SetEnvironmentVariable("FNA_BASEDIR", gameDir);
 
 			Environment.SetEnvironmentVariable("FNA_OPENGL_FORCE_ES3", "1");
 
