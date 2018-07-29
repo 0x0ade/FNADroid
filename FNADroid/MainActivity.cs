@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using System.Text;
 
 namespace FNADroid
 {
@@ -55,7 +56,10 @@ namespace FNADroid
 				break;
 			}
 
-			System.Environment.CurrentDirectory = Path.GetDirectoryName(GamePath);
+			if (!string.IsNullOrEmpty(GamePath))
+			{
+				System.Environment.CurrentDirectory = Path.GetDirectoryName(GamePath);
+			}
 			System.Environment.SetEnvironmentVariable("FNADROID", "1");
 
 			// Load our copy of FNA before the game gets a chance to run its copy.
@@ -87,7 +91,15 @@ namespace FNADroid
 				{
 					using (AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Instance))
 					{
-						dialogBuilder.SetMessage($"Couldn't find\n{Game}");
+						StringBuilder stringBuilder = new StringBuilder();
+						stringBuilder.Append("Game not found: ").AppendLine(Game);
+						foreach (Java.IO.File root in Instance.GetExternalFilesDirs(null))
+						{
+							stringBuilder.AppendLine();
+							stringBuilder.AppendLine(Path.Combine(root.AbsolutePath, Game));
+						}
+
+						dialogBuilder.SetMessage(stringBuilder.ToString());
 						dialogBuilder.SetCancelable(false);
 						dialog = dialogBuilder.Show();
 					}
