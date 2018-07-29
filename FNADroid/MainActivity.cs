@@ -4,6 +4,11 @@ using Android.OS;
 using Org.Libsdl.App;
 using Android.Views;
 using Android.Content.Res;
+using System.IO;
+using System.Runtime.CompilerServices;
+using Microsoft.Xna.Framework;
+using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace FNADroid
 {
@@ -17,21 +22,44 @@ namespace FNADroid
 	public class MainActivity : SDLActivity
 	{
 
-		public static MainActivity SDL2DCS_Instance { get; protected set; }
+		// TODO: UNHARDCODE!
+		public const string Game = "Axiom Verge/AxiomVerge.exe";
+		public string GamePath;
+
+		public static MainActivity Instance { get; protected set; }
 
 		public override void LoadLibraries()
 		{
 			base.LoadLibraries();
 			Java.Lang.JavaSystem.LoadLibrary("fnadroid-ext");
 			// Give the main library something to call in Mono-Land.
-			Bootstrap.SetMain(Bootstrap.SDL_Main);
+			SetMain(SDL_Main);
 		}
 
 		protected override void OnStart()
 		{
 			base.OnStart();
-			SDL2DCS_Instance = this;
+			Instance = this;
 			ActionBar.Hide();
+
+			// Load stub Steamworks.NET
+			Steamworks.SteamAPI.Init();
+
+			GamePath = null;
+			foreach (Java.IO.File root in GetExternalFilesDirs(null))
+			{
+				string path = Path.Combine(root.AbsolutePath, Game);
+				if (!File.Exists(path))
+					continue;
+				GamePath = path;
+				break;
+			}
+
+			System.Environment.CurrentDirectory = Path.GetDirectoryName(GamePath);
+			System.Environment.SetEnvironmentVariable("FNADROID", "1");
+
+			// Load our copy of FNA before the game gets a chance to run its copy.
+			RuntimeHelpers.RunClassConstructor(typeof(Game).TypeHandle);
 		}
 
 		public override void OnWindowFocusChanged(bool hasFocus)
@@ -49,6 +77,43 @@ namespace FNADroid
 				);
 			}
 		}
+
+		public static void SDL_Main()
+		{
+			if (string.IsNullOrEmpty(Instance.GamePath))
+			{
+				AlertDialog dialog = null;
+				Instance.RunOnUiThread(() =>
+				{
+					using (AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Instance))
+					{
+						dialogBuilder.SetMessage($"Couldn't find\n{Game}");
+						dialogBuilder.SetCancelable(false);
+						dialog = dialogBuilder.Show();
+					}
+				});
+
+				while (dialog == null || dialog.IsShowing)
+				{
+					System.Threading.Thread.Sleep(0);
+				}
+				dialog.Dispose();
+				return;
+			}
+
+			// Replace the following with whatever was in your Program.Main method.
+
+			/*
+			using (TestGame game = new TestGame())
+			{
+				game.Run();
+			}
+			*/
+			Assembly.LoadFrom(Instance.GamePath).EntryPoint.Invoke(null, new object[] { new string[] { /*args*/ } });
+		}
+
+		[DllImport("main")]
+		public static extern void SetMain(System.Action main);
 
 	}
 }

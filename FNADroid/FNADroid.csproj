@@ -76,8 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestGame.cs" />
-    <Compile Include="Bootstrap.cs" />
-    <Compile Include="FNADroidPlatform.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,9 +112,9 @@
     <Folder Include="Resources\layout\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FNADroid-FNA\FNA.csproj">
+    <ProjectReference Include="..\FNADroid-FNA.csproj">
       <Project>{35253ce1-c864-4cd3-8249-4d1319748e8f}</Project>
-      <Name>FNA</Name>
+      <Name>FNADroid-FNA</Name>
     </ProjectReference>
     <ProjectReference Include="..\SDL2Droid-CS\SDL2Droid-CS-JBindings\SDL2Droid-CS-JBindings.csproj">
       <Project>{3a8963d1-351b-444b-b2fb-7207601c81de}</Project>
