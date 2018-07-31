@@ -4,6 +4,11 @@
 #### clone recursively
 ----
 
+### Special thanks to my [patrons on Patreon](https://www.patreon.com/0x0ade):
+- [Chad Yates](https://twitter.com/ChadCYates)
+- Daniel Shumway
+- Merlijn Sebrechts
+
 #### TL;DR:
 * Run `/FNADroid-Native/buildnative.sh`
 * Compile `/SDL2Droid-CS/SDL2Droid-CS-Java/` into `/SDL2Droid-CS/SDL2Droid-CS-JBindings/Jars/SDL2Droid-CS-Java.jar`

@@ -115,13 +115,11 @@ namespace FNADroid
 
 			// Replace the following with whatever was in your Program.Main method.
 
-			/*
 			using (TestGame game = new TestGame())
 			{
 				game.Run();
 			}
-			*/
-			Assembly.LoadFrom(Instance.GamePath).EntryPoint.Invoke(null, new object[] { new string[] { /*args*/ } });
+			// Assembly.LoadFrom(Instance.GamePath).EntryPoint.Invoke(null, new object[] { new string[] { /*args*/ } });
 		}
 
 		[DllImport("main")]

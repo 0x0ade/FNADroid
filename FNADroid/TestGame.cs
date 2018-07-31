@@ -43,6 +43,13 @@ namespace FNADroid
 			base.Initialize();
 		}
 
+		private T GetDelegate<T>(IntPtr ptr) where T : class
+		{
+			if (ptr == IntPtr.Zero)
+				return null;
+			return Marshal.GetDelegateForFunctionPointer(ptr, typeof(T)) as T;
+		}
+
 		protected override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
