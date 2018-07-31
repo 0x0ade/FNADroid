@@ -24,7 +24,7 @@ namespace FNADroid
 	{
 
 		// TODO: UNHARDCODE!
-		public const string Game = "Axiom Verge/AxiomVerge.exe";
+		public const string Game = "Chasm/Chasm.exe";
 		public string GamePath;
 
 		public static MainActivity Instance { get; protected set; }
@@ -115,11 +115,14 @@ namespace FNADroid
 
 			// Replace the following with whatever was in your Program.Main method.
 
+			/*/
 			using (TestGame game = new TestGame())
 			{
 				game.Run();
 			}
-			// Assembly.LoadFrom(Instance.GamePath).EntryPoint.Invoke(null, new object[] { new string[] { /*args*/ } });
+			/*/
+			Assembly.LoadFrom(Instance.GamePath).EntryPoint.Invoke(null, new object[] { new string[] { /*args*/ } });
+			/**/
 		}
 
 		[DllImport("main")]
