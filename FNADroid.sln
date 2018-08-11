@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNADroid", "FNADroid\FNADro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDL2Droid-CS-JBindings", "SDL2Droid-CS\SDL2Droid-CS-JBindings\SDL2Droid-CS-JBindings.csproj", "{3A8963D1-351B-444B-B2FB-7207601C81DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNADroid-Browser", "..\FNADroid-Browser\FNADroid-Browser.csproj", "{34EB2130-C2D5-4AE8-B203-7C4B869A6CDC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNADroid-Player", "..\FNADroid-Player\FNADroid-Player.csproj", "{34EB2130-C2D5-4AE8-B203-7C4B869A6CDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNA", "FNADroid-FNA.csproj", "{35253CE1-C864-4CD3-8249-4D1319748E8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNADroid-FNA", "FNADroid-FNA.csproj", "{35253CE1-C864-4CD3-8249-4D1319748E8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
